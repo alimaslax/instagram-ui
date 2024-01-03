@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     },
     stories: {
         width: "100%",
-        paddingLeft: 20,
+        paddingLeft: 12,
         paddingVertical: 3,
         alignItems: "center"
     },
@@ -42,5 +42,38 @@ export const styles = StyleSheet.create({
     storiesCardText: {
         color: "white",
         fontSize: 12,
+    },
+    content: {
+        width: '100%',
+        marginBottom: 10,
+    },
+    contentItemHeader: {
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "row",
+        paddingHorizontal: 12,
+        height: 52
+    },
+    contentItemHeaderTxt: {
+        color: "white",
+    },
+    contentItemHeaderImg: {
+        width: 40,
+        height: 40,
+    },
+    contentItemHeaderLeft: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10
+    },
+    viewHr: {
+        height: 1,
+        width: '100%',
+        backgroundColor: "#0f0f0f",
+        marginVertical: 8
+    },
+    contentItem: {},
+    contentItemImgPost: {
+        width: '100%',
     }
 });
