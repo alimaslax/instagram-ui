@@ -17,7 +17,7 @@ export const POSTS_DATA: Post[] = [
         postURL: post1,
         name: "uluketa",
         comment: 'Sky',
-        likes: '223',
+        likes: '2.223',
         date: 'December 28, 2023',
         liked: true,
     },

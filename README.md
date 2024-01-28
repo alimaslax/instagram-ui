@@ -17,6 +17,12 @@ The project is a mobile application created with React Native that mimics the fu
 2. Install dependencies: `npm install` or `npm i` 
 3. Run the app: `npx expo start`
 
+## Versions
+
+1. Node: `v20.10.0`
+2. NPM: `10.2.5`
+3. Expo: `~49.0.15`
+
 ## Contributing
 
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
