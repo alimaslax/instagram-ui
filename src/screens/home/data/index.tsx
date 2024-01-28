@@ -1,67 +1,39 @@
-import photo from "../../../assets/photo.png";
-import photo2 from "../../../assets/photo2.png";
-import photo3 from "../../../assets/photo3.png";
-import photo4 from "../../../assets/photo4.png";
+import {mainUser, user1, user2, user3, user4} from "../../../includes/images";
 
 export const USERS_DATA = [
     {
         id: Math.random().toString(36).substring(2, 27),
-        photoURL: photo,
-        name: "sare728",
-        viewed: false
+        photoURL: mainUser,
+        name: "Your story",
+        viewed: true,
+        main: true
     },
     {
         id: Math.random().toString(36).substring(2, 27),
-        photoURL: photo2,
-        name: "hiuluketa",
-        viewed: false
+        photoURL: user1,
+        name: "_sara_arruda_",
+        viewed: false,
+        main: false
     },
     {
         id: Math.random().toString(36).substring(2, 27),
-        photoURL: photo3,
+        photoURL: user3,
         name: "priv_design",
-        viewed: false
+        viewed: false,
+        main: false
     },
     {
         id: Math.random().toString(36).substring(2, 27),
-        photoURL: photo4,
-        name: "mor6byu",
-        viewed: false
+        photoURL: user2,
+        name: "ds.pino",
+        viewed: false,
+        main: false
     },
     {
         id: Math.random().toString(36).substring(2, 27),
-        photoURL: photo2,
-        name: "andree_sl",
-        viewed: false
-    },
-    {
-        id: Math.random().toString(36).substring(2, 27),
-        photoURL: photo3,
-        name: "mra_i110",
-        viewed: false
-    },
-    {
-        id: Math.random().toString(36).substring(2, 27),
-        photoURL: photo4,
-        name: "tina90br",
-        viewed: false
-    },
-    {
-        id: Math.random().toString(36).substring(2, 27),
-        photoURL: photo2,
-        name: "addleticia",
-        viewed: true
-    },
-    {
-        id: Math.random().toString(36).substring(2, 27),
-        photoURL: photo3,
-        name: "more_princ",
-        viewed: true
-    },
-    {
-        id: Math.random().toString(36).substring(2, 27),
-        photoURL: photo4,
-        name: "kissnow",
-        viewed: true
+        photoURL: user4,
+        name: "denise_12",
+        viewed: false,
+        main: false
     },
 ];

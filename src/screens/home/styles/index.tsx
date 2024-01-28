@@ -13,7 +13,8 @@ export const styles = StyleSheet.create({
         marginTop: 40,
         alignItems: "center",
         justifyContent: "space-between",
-        flexDirection: "row"
+        flexDirection: "row",
+        zIndex: 1000
     },
     headerOptions: {
         alignItems: "center",
@@ -43,6 +44,24 @@ export const styles = StyleSheet.create({
         color: "white",
         fontSize: 12,
     },
+    storiesCardMain: {
+        width: 25,
+        height: 25,
+        backgroundColor: "#0395F5",
+        borderRadius: 50,
+        position: "absolute",
+        bottom: 22,
+        right: 5,
+        borderColor: "black",
+        borderWidth: 2,
+        display: 'flex',
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    storiesCardMainPlus: {
+        width: 9,
+        height: 9
+    },
     content: {
         width: '100%',
         marginBottom: 10,
@@ -54,26 +73,62 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 12,
         height: 52
     },
+    contentItemFooter: {
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "row",
+        paddingHorizontal: 12,
+        height: 50
+    },
     contentItemHeaderTxt: {
         color: "white",
     },
+    contentItemFooterTxt: {
+        color: "white",
+        marginBottom: 3
+    },
     contentItemHeaderImg: {
-        width: 40,
-        height: 40,
+        width: 30,
+        height: 30,
     },
     contentItemHeaderLeft: {
         flexDirection: "row",
         alignItems: "center",
         gap: 10
     },
+    contentItemFooterLeft: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 20
+    },
+    infoPost: {
+        paddingHorizontal: 15
+    },
     viewHr: {
         height: 1,
         width: '100%',
         backgroundColor: "#0f0f0f",
-        marginVertical: 8
+        marginTop: 8
     },
-    contentItem: {},
+    contentItem: {
+        marginBottom: 12
+    },
     contentItemImgPost: {
         width: '100%',
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        display: 'flex',
+        flexDirection: 'row',
+        height: 50,
+        borderTopColor: '#4e4e4e',
+        borderTopWidth: 0.5,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        backgroundColor: 'black'
     }
 });
