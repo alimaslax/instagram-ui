@@ -14,7 +14,7 @@ export const POSTS_DATA: Post[] = [
     {
         id: "1",
         profileURL: mainUser,
-        postURL: post1,
+        postURL: "https://storage.googleapis.com/lewenberg/nonstop.mp4",
         name: "uluketa",
         comment: 'Sky',
         likes: '2.223',
@@ -24,7 +24,7 @@ export const POSTS_DATA: Post[] = [
     {
         id: "2",
         profileURL: user1,
-        postURL: post2,
+        postURL: 'https://storage.googleapis.com/lewenberg/flying.mp4',
         name: "_sara_arruda_",
         comment: 'Home',
         likes: '1.153',
