@@ -1,4 +1,4 @@
-import { mainUser, user1, post1, post2 } from "../../../includes/images";
+import { mainUser, user1, user3, post1, post2 } from "../../../includes/images";
 export interface Post {
     id: string;
     profileURL: string;
@@ -25,6 +25,16 @@ export const POSTS_DATA: Post[] = [
         id: "2",
         profileURL: user1,
         postURL: 'https://storage.googleapis.com/lewenberg/flying.mp4',
+        name: "_sara_arruda_",
+        comment: 'Home',
+        likes: '1.153',
+        date: 'January 02, 2024',
+        liked: false,
+    },
+    {
+        id: "3",
+        profileURL: user3,
+        postURL: 'https://storage.googleapis.com/lewenberg/block.mp4',
         name: "_sara_arruda_",
         comment: 'Home',
         likes: '1.153',

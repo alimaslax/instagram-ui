@@ -14,8 +14,8 @@ The project is a mobile application created with React Native that mimics the fu
 ## Installation
 
 1. Clone the repository
-2. Install dependencies: `npm install` or `npm i` 
-3. Run the app: `npx expo start`
+2. Install dependencies: `yarn` 
+3. Run the app: `yarn expo`
 
 ## Versions
 
