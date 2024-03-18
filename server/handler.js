@@ -71,7 +71,7 @@ const POSTS_DATA = [
     comment: "Home",
     likes: "1.153",
     date: "January 02, 2024",
-    liked: false,
+    liked: true,
   },
 ];
 

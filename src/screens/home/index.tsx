@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
-import { Video } from "expo-av";
+import { ResizeMode, Video } from "expo-av";
 import {
   View,
   Text,
@@ -127,7 +127,7 @@ export function Home() {
                 <View style={styles.contentItemHeader}>
                   <View style={styles.contentItemHeaderLeft}>
                     <Image
-                      src={item.profileURL}
+                      source={{ uri: item.profileURL }}
                       style={{
                         borderRadius: 50,
                         ...styles.contentItemHeaderImg,
@@ -160,15 +160,15 @@ export function Home() {
                         useNativeDriver: true,
                       }).start();
                     }}
-                    resizeMode="cover"
+                    resizeMode={ResizeMode.COVER}
                     source={{ uri: item.postURL }}
                     style={{ flex: 1 }}
                   />
                   {/* Add TouchableOpacity for tap to pause */}
                   <TouchableOpacity
-                  style={styles.overlay}
-                  onPress={() => togglePlayback(item.id)}
-                />
+                    style={styles.overlay}
+                    onPress={() => togglePlayback(item.id)}
+                  />
                 </Animated.View>
 
                 <View style={styles.contentItemFooter}>

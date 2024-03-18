@@ -36,14 +36,17 @@ export function Stories() {
                 padding: item.viewed ? 1.5 : 2,
               }}
             >
-              <Image style={styles.storiesCardImage} src={item.photoURL} />
+              <Image
+                style={styles.storiesCardImage}
+                source={{ uri: item.photoURL }}
+              />
             </LinearGradient>
 
             {item.main && (
               <View style={styles.storiesCardMain}>
                 <Image
                   style={styles.storiesCardMainPlus}
-                  src={userQuery?.data?.plusIcon}
+                  source={{ uri: userQuery?.data?.plusIcon }}
                 />
               </View>
             )}

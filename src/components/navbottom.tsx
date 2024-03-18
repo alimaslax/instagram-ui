@@ -1,23 +1,32 @@
-import React from 'react';
-import { View, Image } from 'react-native';
-import { 
-    HouseIcon, 
-    SearchIcon, 
-    newPostIcon, 
-    UnionIcon, 
-    mainUser 
+import React from "react";
+import { View, Image } from "react-native";
+import {
+  HouseIcon,
+  SearchIcon,
+  newPostIcon,
+  UnionIcon,
 } from "../includes/images";
 
 import { styles } from "../screens/home/styles";
+import { useQuery } from "@tanstack/react-query";
+import { getUserDetails } from "../services/api";
 
 export function NavBottom() {
-    return (
-        <View style={styles.footer}>
-            <HouseIcon />
-            <SearchIcon />
-            <Image source={newPostIcon} style={{width: 25,  height: 25}}/>
-            <UnionIcon />
-            <Image source={mainUser} style={{width: 27,  height: 27, borderRadius: 50}} />
-        </View>
-    );
+  const userQuery = useQuery({
+    queryKey: ["users"],
+    queryFn: getUserDetails,
+  });
+
+  return (
+    <View style={styles.footer}>
+      <HouseIcon />
+      <SearchIcon />
+      <Image source={newPostIcon} style={{ width: 25, height: 25 }} />
+      <UnionIcon />
+      <Image
+        source={{ uri: userQuery?.data?.users[0].photoURL }}
+        style={{ width: 27, height: 27, borderRadius: 50 }}
+      />
+    </View>
+  );
 }
