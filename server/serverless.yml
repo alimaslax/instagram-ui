@@ -1,0 +1,26 @@
+# Welcome to Serverless!
+service: server
+
+
+plugins:
+  - serverless-offline # runs last so your code has been pre-processed and dynamo is ready
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  posts:
+    handler: handler.posts
+    events:
+      - http:
+          path: posts
+          method: get
+  users:
+    handler: handler.users
+    events:
+      - http:
+          path: users
+          method: get

@@ -15,7 +15,6 @@ import { NavBottom } from "../../components/navbottom";
 import { NavTop } from "../../components/navtop";
 import { Stories } from "./components/stories";
 
-import { POSTS_DATA } from "./data/posts";
 import {
   HeartIcon,
   RedHeartIcon,
@@ -24,6 +23,8 @@ import {
   BookmarkIcon,
   PointsIcon,
 } from "../../includes/images";
+import { getPostDetails } from "../../services/api";
+import { useQuery } from "@tanstack/react-query";
 
 export function Home() {
   const screenWidth = Dimensions.get("window").width;
@@ -33,47 +34,59 @@ export function Home() {
   const setVideoState = useStore(
     useCallback((state) => state.setVideoState, [])
   );
+  const postQuery = useQuery({
+    queryKey: ["posts"],
+    queryFn: getPostDetails,
+  });
+
   const videos = useStore((state) => state.videos); // Get videos from store
-  const [posts, setPosts] = useState(POSTS_DATA);
   const videoRef = useRef(null);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const opacity = new Animated.Value(0);
 
   useEffect(() => {
-    setVideoState(
-      posts.map((post) => ({
+    if (postQuery.isSuccess) {
+      // Extract posts from the query result
+      const posts = postQuery.data.posts;
+  
+      // Map through the posts and update the video state
+      const videoStates = posts.map((post) => ({
         id: post.id,
-        isPaused: true,
-      }))
-    );
-  }, [posts]);
+        isPaused: false, // Assuming all videos start playing initially
+      }));
+  
+      // Update the video state with the new values
+      setVideoState(videoStates);
+    }
+  }, [postQuery.isSuccess, postQuery.data, setVideoState]);
+  
 
   const handleToggleLike = (postId: string) => {
-    setPosts((prevPosts) => {
-      return prevPosts.map((post) => {
-        if (post.id === postId) {
-          post.liked = !post.liked;
-        }
-        return post;
-      });
-    });
+    // setPosts((prevPosts) => {
+    //   return prevPosts.map((post) => {
+    //     if (post.id === postId) {
+    //       post.liked = !post.liked;
+    //     }
+    //     return post;
+    //   });
+    // });
   };
+
+  const posts: any = [];
 
   return (
     <View style={styles.container}>
       <NavTop />
       <FlatList
-        data={["header", ...POSTS_DATA]}
-        keyExtractor={(item) =>
-          typeof item === "object" ? item.id.toString() : "header"
-        }
+        data={["header", ...postQuery?.data?.posts?? []]}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) =>
           typeof item === "object" ? (
             <View style={styles.contentItem}>
               <View style={styles.contentItemHeader}>
                 <View style={styles.contentItemHeaderLeft}>
                   <Image
-                    source={item.profileURL}
+                    src={item.profileURL}
                     style={{ borderRadius: 50, ...styles.contentItemHeaderImg }}
                   />
                   <Text style={styles.contentItemHeaderTxt}>{item.name}</Text>
@@ -94,7 +107,7 @@ export function Home() {
                   isLooping
                   isMuted
                   shouldPlay={
-                    videos.find((video) => video.id === item.id)?.isPaused
+                    videos?.find((video) => video.id === item.id)?.isPaused
                   } // Check if the video is paused in the state
                   onLoad={() => {
                     Animated.timing(opacity, {

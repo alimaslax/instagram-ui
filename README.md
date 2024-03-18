@@ -1,6 +1,6 @@
 # Instagram Clone (Work in Progress)
 
-This project aims to replicate the Instagram app using React Native Expo. It's a work in progress and is currently under development.
+This project aims to teach about react, expo, and zustand.
 
 ## Description
 
@@ -22,6 +22,14 @@ The project is a mobile application created with React Native that mimics the fu
 1. Node: `v20.10.0`
 2. NPM: `10.2.5`
 3. Expo: `~49.0.15`
+
+## Serverless
+
+
+navigate to ./server and run
+```bash
+npx sls offline
+```
 
 ## Contributing
 

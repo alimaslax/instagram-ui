@@ -24,14 +24,4 @@ export const ShareIcon = share;
 import message from "../assets/icons/Message.svg";
 export const MessageIcon = message;
 import stroke from "../assets/icons/Stroke.svg";
-export const StrokeIcon = stroke; 
-
-// Users & Posts
-export const mainUser = require("../assets/users/main_user.png");
-export const instagramLogo = require("../assets/logo.png");
-export const post1 = require("../assets/posts/post1.png");
-export const post2 = require("../assets/posts/post2.png");
-export const user1 = require("../assets/users/user1.png");
-export const user2 = require("../assets/users/user2.png");
-export const user3 = require("../assets/users/user3.png");
-export const user4 = require("../assets/users/user4.png");
+export const StrokeIcon = stroke;
