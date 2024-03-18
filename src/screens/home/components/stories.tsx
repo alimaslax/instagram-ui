@@ -17,7 +17,9 @@ export function Stories() {
       <FlatList
         horizontal={true}
         data={["header", ...(userQuery?.data?.users ?? [])]}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) =>
+          typeof item === "object" ? item.id : `header_${index}`
+        }
         renderItem={({ item }) => (
           <View style={styles.story}>
             <LinearGradient

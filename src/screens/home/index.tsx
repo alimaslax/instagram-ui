@@ -48,18 +48,17 @@ export function Home() {
     if (postQuery.isSuccess) {
       // Extract posts from the query result
       const posts = postQuery.data.posts;
-  
+
       // Map through the posts and update the video state
       const videoStates = posts.map((post) => ({
         id: post.id,
         isPaused: false, // Assuming all videos start playing initially
       }));
-  
+
       // Update the video state with the new values
       setVideoState(videoStates);
     }
   }, [postQuery.isSuccess, postQuery.data, setVideoState]);
-  
 
   const handleToggleLike = (postId: string) => {
     // setPosts((prevPosts) => {
@@ -78,8 +77,10 @@ export function Home() {
     <View style={styles.container}>
       <NavTop />
       <FlatList
-        data={["header", ...postQuery?.data?.posts?? []]}
-        keyExtractor={(item) => item.id}
+        data={["header", ...(postQuery?.data?.posts ?? [])]}
+        keyExtractor={(item, index) =>
+          typeof item === "object" ? item.id : `header_${index}`
+        }
         renderItem={({ item }) =>
           typeof item === "object" ? (
             <View style={styles.contentItem}>
