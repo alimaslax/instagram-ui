@@ -60,14 +60,17 @@ to this
     })),
 ```
 
-2. OX-1053: Toggle playback on a Video causes the other Video to toggle it's playback
-    Description: When a user logins and clicks on a video. The other visible video gets toggled
-    Given:
-        User clicks a video (pause or play)
-    Acceptance Criteria:
-        The video the user clicks on is the only one that gets toggled
+2. Pictures are not displaying
 
+```
+  const users: User[] = usersJson.users.map((user: any) => ({
+    id: user.id,
+    name: user.name,
+    photoURi: user.photoURL,
+```
 
+## Troubleshooting
+If images and videos are not loading, but the user profile names are loading. Then this is a proxy issue with iOS simulator. Make sure to Trust any local Certificates or to add trusted certificates to the new iPhone simulator
 
 ## Contributing
 
