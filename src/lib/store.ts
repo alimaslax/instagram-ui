@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 type VideoState = {
   id: string;
-  isPaused: boolean;
+  isPlaying: boolean;
 };
 type State = {
   click: number;
@@ -11,6 +11,8 @@ type State = {
 };
 
 type Actions = {
+  startPlayBack: (id: string) => void;
+  stopPlayBack: (id: string) => void;
   togglePlayback: (id: string) => void;
   setVideoState: (videos: VideoState[] | undefined) => void;
 };
@@ -22,8 +24,22 @@ export const useStore = create<State & Actions>((set) => ({
   togglePlayback: (id: string) =>
     set((state) => ({
       videos: state.videos?.map((video) =>
-        video.id === id ? { ...video, isPaused: !video.isPaused } : video
+        video.id === id ? { ...video, isPlaying: !video.isPlaying } : video
       ),
+    })),
+  startPlayBack: (id: string) =>
+    set((state) => ({
+      videos: state.videos?.map((video) => ({
+        ...video,
+        isPlaying: video.id === id ? true : video.isPlaying,
+      })),
+    })),
+  stopPlayBack: (id: string) =>
+    set((state) => ({
+      videos: state.videos?.map((video) => ({
+        ...video,
+        isPlaying: video.id === id ? false : video.isPlaying,
+      })),
     })),
   setVideoState: (videos: VideoState[] | undefined) =>
     set((state) => ({ ...state, videos: videos })),

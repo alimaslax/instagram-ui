@@ -28,9 +28,13 @@ import { useQuery } from "@tanstack/react-query";
 
 export function Home() {
   const screenWidth = Dimensions.get("window").width;
+  const startPlayBack = useStore(
+    useCallback((state) => state.startPlayBack, [])
+  );
   const togglePlayback = useStore(
     useCallback((state) => state.togglePlayback, [])
   );
+  const stopPlayBack = useStore(useCallback((state) => state.stopPlayBack, []));
   const setVideoState = useStore(
     useCallback((state) => state.setVideoState, [])
   );
@@ -52,7 +56,7 @@ export function Home() {
       // Map through the posts and update the video state
       const videoStates = posts.map((post) => ({
         id: post.id,
-        isPaused: false, // Assuming all videos start playing initially
+        isPlaying: false, // Assuming all videos start playing initially
       }));
 
       // Update the video state with the new values
@@ -60,121 +64,162 @@ export function Home() {
     }
   }, [postQuery.isSuccess, postQuery.data, setVideoState]);
 
-  const handleToggleLike = (postId: string) => {
-    // setPosts((prevPosts) => {
-    //   return prevPosts.map((post) => {
-    //     if (post.id === postId) {
-    //       post.liked = !post.liked;
-    //     }
-    //     return post;
-    //   });
-    // });
+  const handleStartPlayback = (postId: string) => {
+    console.log("starting " + postId);
+    startPlayBack(postId);
   };
 
-  const posts: any = [];
+  const handleStopPlayback = (postId: string) => {
+    console.log("stopping " + postId);
+    stopPlayBack(postId);
+  };
+
+  const onViewVideo = ({ viewableItems }) => {
+    viewableItems.forEach(({ item }) => {
+      if (typeof item === "object" && videos) {
+        // Start playback for the visible video
+        handleStartPlayback(item.id);
+      }
+    });
+  };
+
+  const onHideVideo = ({ viewableItems }) => {
+    viewableItems.forEach(({ item }) => {
+      if (typeof item === "object" && videos) {
+        // Start playback for the visible video
+        handleStopPlayback(item.id);
+      }
+    });
+  };
+
+  const viewabilityConfigCallbackPairs = useRef([
+    {
+      viewabilityConfig: {
+        viewAreaCoveragePercentThreshold: 100,
+      },
+      onViewableItemsChanged: onViewVideo,
+    },
+    {
+      viewabilityConfig: {
+        waitForInteraction: true,
+        itemVisiblePercentThreshold: 50,
+      },
+      onViewableItemsChanged: onHideVideo,
+    },
+  ]);
 
   return (
     <View style={styles.container}>
       <NavTop />
-      <FlatList
-        data={["header", ...(postQuery?.data?.posts ?? [])]}
-        keyExtractor={(item, index) =>
-          typeof item === "object" ? item.id : `header_${index}`
-        }
-        renderItem={({ item }) =>
-          typeof item === "object" ? (
-            <View style={styles.contentItem}>
-              <View style={styles.contentItemHeader}>
-                <View style={styles.contentItemHeaderLeft}>
-                  <Image
-                    src={item.profileURL}
-                    style={{ borderRadius: 50, ...styles.contentItemHeaderImg }}
-                  />
-                  <Text style={styles.contentItemHeaderTxt}>{item.name}</Text>
+      {videos ? (
+        <FlatList
+          data={["header", ...(postQuery?.data?.posts ?? [])]}
+          keyExtractor={(item, index) =>
+            typeof item === "object" ? item.id : `header_${index}`
+          }
+          viewabilityConfigCallbackPairs={
+            viewabilityConfigCallbackPairs.current
+          }
+          renderItem={({ item }) =>
+            typeof item === "object" ? (
+              <View style={styles.contentItem}>
+                <View style={styles.contentItemHeader}>
+                  <View style={styles.contentItemHeaderLeft}>
+                    <Image
+                      src={item.profileURL}
+                      style={{
+                        borderRadius: 50,
+                        ...styles.contentItemHeaderImg,
+                      }}
+                    />
+                    <Text style={styles.contentItemHeaderTxt}>{item.name}</Text>
+                  </View>
+                  <PointsIcon style={{ transform: [{ rotate: "90deg" }] }} />
                 </View>
-                <PointsIcon style={{ transform: [{ rotate: "90deg" }] }} />
-              </View>
-              <Animated.View
-                style={[
-                  styles.backgroundViewWrapper,
-                  { opacity },
-                  { width: screenWidth, height: screenWidth },
-                ]}
-              >
-                {/* Render the Video component */}
-                <Video
-                  ref={videoRef}
-                  key={currentVideoIndex} // Ensure the component remounts if the key changes
-                  isLooping
-                  isMuted
-                  shouldPlay={
-                    videos?.find((video) => video.id === item.id)?.isPaused
-                  } // Check if the video is paused in the state
-                  onLoad={() => {
-                    Animated.timing(opacity, {
-                      toValue: 1,
-                      duration: 500,
-                      useNativeDriver: true,
-                    }).start();
-                  }}
-                  resizeMode="cover"
-                  source={{ uri: item.postURL }}
-                  style={{ flex: 1 }}
-                />
-                {/* Add TouchableOpacity for tap to pause */}
-                <TouchableOpacity
+                <Animated.View
+                  style={[
+                    styles.backgroundViewWrapper,
+                    { opacity },
+                    { width: screenWidth, height: screenWidth },
+                  ]}
+                >
+                  {/* Render the Video component */}
+                  <Video
+                    ref={videoRef}
+                    key={currentVideoIndex} // Ensure the component remounts if the key changes
+                    isLooping
+                    isMuted
+                    shouldPlay={
+                      videos?.find((video) => video.id === item.id)?.isPlaying
+                    } // Check if the video is paused in the state
+                    onLoad={() => {
+                      Animated.timing(opacity, {
+                        toValue: 1,
+                        duration: 500,
+                        useNativeDriver: true,
+                      }).start();
+                    }}
+                    resizeMode="cover"
+                    source={{ uri: item.postURL }}
+                    style={{ flex: 1 }}
+                  />
+                  {/* Add TouchableOpacity for tap to pause */}
+                  <TouchableOpacity
                   style={styles.overlay}
                   onPress={() => togglePlayback(item.id)}
                 />
-              </Animated.View>
+                </Animated.View>
 
-              <View style={styles.contentItemFooter}>
-                <View style={styles.contentItemFooterLeft}>
-                  <TouchableOpacity
-                    key={item.id}
-                    onPress={() => handleToggleLike(item.id)}
-                  >
-                    {item.liked ? <RedHeartIcon /> : <HeartIcon />}
-                  </TouchableOpacity>
-                  <CommentIcon />
-                  <ShareIcon />
+                <View style={styles.contentItemFooter}>
+                  <View style={styles.contentItemFooterLeft}>
+                    <TouchableOpacity key={item.id} onPress={() => item.id}>
+                      {item.liked ? <RedHeartIcon /> : <HeartIcon />}
+                    </TouchableOpacity>
+                    <CommentIcon />
+                    <ShareIcon />
+                  </View>
+                  <BookmarkIcon />
                 </View>
-                <BookmarkIcon />
-              </View>
 
-              <View style={styles.infoPost}>
-                <Text
-                  style={{ fontWeight: "600", ...styles.contentItemFooterTxt }}
-                >
-                  {item.likes} likes
-                </Text>
-                <View style={{ display: "flex", flexDirection: "row" }}>
+                <View style={styles.infoPost}>
                   <Text
                     style={{
                       fontWeight: "600",
                       ...styles.contentItemFooterTxt,
                     }}
                   >
-                    {item.name}{" "}
+                    {item.likes} likes
                   </Text>
-                  <Text style={styles.contentItemFooterTxt}>
-                    {item.comment}
+                  <View style={{ display: "flex", flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontWeight: "600",
+                        ...styles.contentItemFooterTxt,
+                      }}
+                    >
+                      {item.name}{" "}
+                    </Text>
+                    <Text style={styles.contentItemFooterTxt}>
+                      {item.comment}
+                    </Text>
+                  </View>
+                  <Text style={{ color: "#aaaaaa", fontSize: 11 }}>
+                    {item.date}
                   </Text>
                 </View>
-                <Text style={{ color: "#aaaaaa", fontSize: 11 }}>
-                  {item.date}
-                </Text>
               </View>
-            </View>
-          ) : (
-            <Stories />
-          )
-        }
-        scrollEventThrottle={16}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<View />}
-        stickyHeaderIndices={[0]}
-      />
+            ) : (
+              <Stories />
+            )
+          }
+          scrollEventThrottle={16}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={<View />}
+          stickyHeaderIndices={[0]}
+        />
+      ) : (
+        <></>
+      )}
 
       <View style={{ marginBottom: 50 }} />
       <NavBottom />
