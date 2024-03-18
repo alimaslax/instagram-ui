@@ -24,3 +24,9 @@ functions:
       - http:
           path: users
           method: get
+  like:
+    handler: handler.like
+    events:
+      - http:
+          path: like
+          method: put

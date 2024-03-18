@@ -103,3 +103,20 @@ module.exports.posts = async (event) => {
     }),
   };
 };
+
+// function to toggle the "liked" button for a post
+// TODO:: add SQL db or local file storage for memory
+module.exports.like = async (event) => {
+  const requestBody = JSON.parse(event.body); // Parse the request body to extract the post ID and liked status
+  const { id, liked } = requestBody; // Destructure the post ID and liked status from the request body
+  return {
+    statusCode: 404,
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      message: `Post with ID ${id} not found`,
+    }),
+  };
+};
