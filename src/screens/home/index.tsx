@@ -74,18 +74,19 @@ export function Home() {
     stopPlayBack(postId);
   };
 
-  const onViewVideo = ({ viewableItems }) => {
-    viewableItems.forEach(({ item }) => {
-      if (typeof item === "object" && videos) {
+  const onViewVideo = ({ viewableItems, changed }) => {
+    changed.forEach(({ item }) => {
+      if (typeof item === "object" && item.id) {
         // Start playback for the visible video
         handleStartPlayback(item.id);
       }
     });
   };
 
-  const onHideVideo = ({ viewableItems }) => {
-    viewableItems.forEach(({ item }) => {
-      if (typeof item === "object" && videos) {
+  const onHideVideo = ({ viewableItems, changed }) => {
+    changed.forEach(({ item }) => {
+      console.log(item);
+      if (typeof item === "object" && item.id) {
         // Start playback for the visible video
         handleStopPlayback(item.id);
       }
