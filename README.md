@@ -31,6 +31,44 @@ navigate to ./server and run
 npx sls offline
 ```
 
+## Sprint Features & Bugs
+
+1. OX-1052: Toggle playback on a Video causes the other Video to toggle it's playback
+    Description: When a user logins and clicks on a video. The other visible video gets toggled
+    Given:
+        User clicks a video (pause or play)
+    Acceptance Criteria:
+        The video the user clicks on is the only one that gets toggled
+
+```
+change
+  togglePlayback: (id: string) =>
+    set((state) => ({
+      videos: state.videos?.map((video) => ({
+        ...video,
+        isPlaying: !video.isPlaying,
+      })),
+    })),
+
+to this
+  togglePlayback: (id: string) =>
+    set((state) => ({
+      videos: state.videos?.map((video) => ({
+        ...video,
+        isPlaying: video.id === id ? !video.isPlaying : video.isPlaying,
+      })),
+    })),
+```
+
+2. OX-1053: Toggle playback on a Video causes the other Video to toggle it's playback
+    Description: When a user logins and clicks on a video. The other visible video gets toggled
+    Given:
+        User clicks a video (pause or play)
+    Acceptance Criteria:
+        The video the user clicks on is the only one that gets toggled
+
+
+
 ## Contributing
 
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:

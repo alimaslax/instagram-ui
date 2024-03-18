@@ -16,7 +16,7 @@ export function Stories() {
     <View style={styles.stories}>
       <FlatList
         horizontal={true}
-        data={["header", ...(userQuery?.data?.users ?? [])]}
+        data={["header", ...(userQuery?.data ?? [])]}
         keyExtractor={(item, index) =>
           typeof item === "object" ? item.id : `header_${index}`
         }
@@ -38,7 +38,7 @@ export function Stories() {
             >
               <Image
                 style={styles.storiesCardImage}
-                source={{ uri: item.photoURL }}
+                source={{ uri: item.photoURi }}
               />
             </LinearGradient>
 

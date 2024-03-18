@@ -25,7 +25,7 @@ export const useStore = create<State & Actions>((set) => ({
     set((state) => ({
       videos: state.videos?.map((video) => ({
         ...video,
-        isPlaying: video.id === id ? !video.isPlaying : video.isPlaying,
+        isPlaying: !video.isPlaying,
       })),
     })),
   startPlayBack: (id: string) =>

@@ -23,10 +23,14 @@ export function NavBottom() {
       <SearchIcon />
       <Image source={newPostIcon} style={{ width: 25, height: 25 }} />
       <UnionIcon />
-      <Image
-        source={{ uri: userQuery?.data?.users[0].photoURL }}
-        style={{ width: 27, height: 27, borderRadius: 50 }}
-      />
+      {userQuery.isSuccess ? (
+        <Image
+          source={{ uri: userQuery?.data[0].photoURi }}
+          style={{ width: 27, height: 27, borderRadius: 50 }}
+        />
+      ) : (
+        <></>
+      )}
     </View>
   );
 }

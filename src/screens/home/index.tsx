@@ -65,12 +65,10 @@ export function Home() {
   }, [postQuery.isSuccess, postQuery.data, setVideoState]);
 
   const handleStartPlayback = (postId: string) => {
-    console.log("starting " + postId);
     startPlayBack(postId);
   };
 
   const handleStopPlayback = (postId: string) => {
-    console.log("stopping " + postId);
     stopPlayBack(postId);
   };
 
@@ -85,7 +83,6 @@ export function Home() {
 
   const onHideVideo = ({ viewableItems, changed }) => {
     changed.forEach(({ item }) => {
-      console.log(item);
       if (typeof item === "object" && item.id) {
         // Start playback for the visible video
         handleStopPlayback(item.id);
