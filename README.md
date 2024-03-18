@@ -33,8 +33,10 @@ npx sls offline
 
 ## Sprint Features & Bugs
 
-1. OX-1052: Toggle playback on a Video causes the other Video to toggle it's playback
-    Description: When a user logins and clicks on a video. The other visible video gets toggled
+==========================
+HD-01: Toggling playback on a video causes another to toggle it's playback
+
+Description: A bug was discovered that when Users login and toggles a videos playback, the other visible video gets toggled
     Given:
         User clicks a video (pause or play)
     Acceptance Criteria:
@@ -60,7 +62,16 @@ to this
     })),
 ```
 
-2. Pictures are not displaying
+==========================
+HD-02: User Profile Pictures are not displaying as of R2024.07
+
+Description: Last nights production release of the API gateway has caused profile pictures to not display. Data
+is coming back from the api gateway but the app is no longer showing User photos.
+    Given:
+        All profile pictures are not showing up.
+    Acceptance Criteria:
+        The video the user clicks on is the only one that gets toggled
+
 
 ```
   const users: User[] = usersJson.users.map((user: any) => ({
@@ -68,6 +79,18 @@ to this
     name: user.name,
     photoURi: user.photoURL,
 ```
+
+==========================
+HD-03: Stuff and stuff
+
+Description: Last nights production release of the API gateway has caused profile pictures to not display. Data
+is coming back from the api gateway but the app is no longer showing User photos.
+    Given:
+        All profile pictures are not showing up.
+    Acceptance Criteria:
+        The video the user clicks on is the only one that gets toggled
+
+
 
 ## Troubleshooting
 If images and videos are not loading, but the user profile names are loading. Then this is a proxy issue with iOS simulator. Make sure to Trust any local Certificates or to add trusted certificates to the new iPhone simulator
