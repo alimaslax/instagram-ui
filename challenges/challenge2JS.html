@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Counter Example</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  .container {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .counter {
+    margin-top: 20px;
+  }
+
+  #counterDisplay {
+    font-size: 24px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Counter Example</h1>
+  <div class="counter">
+    <p id="counterDisplay">0</p>
+    <button id="incrementBtn">Increment</button>
+    <button id="resetBtn">Reset</button>
+  </div>
+</div>
+<script>
+  // Get the necessary elements
+  const counterDisplay = document.getElementById('counterDisplay');
+  const incrementBtn = document.getElementById('incrementBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  const counterValue = 0;
+
+  // Function to increment the counter
+  function incrementCounter() {
+    counterValue++;
+    updateCounterDisplay();
+  }
+
+  // Function to reset the counter
+  function resetCounter() {
+    counterValue = 0;
+    updateCounterDisplay();
+  }
+
+  // Function to update the counter display
+  function updateCounterDisplay() {
+    counterDisplay.textContent = counterValue;
+  }
+
+  // Event listener for the increment button
+  incrementBtn.addEventListener('click', incrementCounter);
+
+  // Event listener for the reset button
+  resetBtn.addEventListener('click', resetCounter);
+</script>
+</body>
+</html>
