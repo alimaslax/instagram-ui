@@ -61,7 +61,7 @@
                     // Populate the table with sample data
                     const tbody = document.getElementById("participation-body");
                     participationData.forEach(function(student) {
-                        const row = document.createElement("tr");
+                        const row = document.createElement("td");
                         row.innerHTML = `
                             <td>${student.name}</td>
                             <td>${student.attendance}</td>
