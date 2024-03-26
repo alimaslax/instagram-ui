@@ -38,7 +38,7 @@
   const incrementBtn = document.getElementById('incrementBtn');
   const resetBtn = document.getElementById('resetBtn');
 
-  const counterValue = 0;
+  let counterValue = 0;
 
   // Function to increment the counter
   function incrementCounter() {
@@ -50,6 +50,7 @@
   function resetCounter() {
     counterValue = 0;
     updateCounterDisplay();
+    incrementBtn.removeEventListener('click', incrementCounter);
   }
 
   // Function to update the counter display
