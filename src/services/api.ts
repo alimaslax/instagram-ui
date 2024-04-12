@@ -11,7 +11,7 @@ export const getUserDetails = async (): Promise<User[]> => {
   const users: User[] = usersJson.users.map((user: any) => ({
     id: user.id,
     name: user.name,
-    photoURi: user.photoURi,
+    photoURi: user.photoURL,
     main: user.main,
     viewed: user.viewed
   }));
