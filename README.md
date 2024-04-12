@@ -60,13 +60,19 @@ to this
     })),
 ```
 
-2. Pictures are not displaying
+2. OX-1055: Pictures are not displaying
+    Description: When a user logins pictures are not displaying.
+    Given:
+        User logs in
+    Acceptance Criteria:
+        The upper profile pictures must display
+change the photoUri to photoUrl. Must've been a backend change coming downstream
 
 ```
   const users: User[] = usersJson.users.map((user: any) => ({
     id: user.id,
     name: user.name,
-    photoURi: user.photoURL,
+    photoURi: user.photoURi,
 ```
 
 ## Troubleshooting
