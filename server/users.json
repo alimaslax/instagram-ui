@@ -1,0 +1,37 @@
+[
+  {
+    "id": "example_id_1",
+    "photoURL": "https://picsum.photos/id/870/200/300.jpg",
+    "name": "Your story",
+    "viewed": true,
+    "main": true
+  },
+  {
+    "id": "example_id_2",
+    "photoURL": "https://picsum.photos/id/871/200/300.jpg",
+    "name": "_sara_arruda_",
+    "viewed": false,
+    "main": false
+  },
+  {
+    "id": "example_id_3",
+    "photoURL": "https://picsum.photos/id/872/200/300.jpg",
+    "name": "priv_design",
+    "viewed": false,
+    "main": false
+  },
+  {
+    "id": "example_id_4",
+    "photoURL": "https://picsum.photos/id/873/200/300.jpg",
+    "name": "ds.pino",
+    "viewed": false,
+    "main": false
+  },
+  {
+    "id": "example_id_5",
+    "photoURL": "https://picsum.photos/id/874/200/300.jpg",
+    "name": "denise_12",
+    "viewed": false,
+    "main": false
+  }
+]

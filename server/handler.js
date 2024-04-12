@@ -1,81 +1,85 @@
 "use strict";
+const fs = require("fs");
+
+// function to toggle the "liked" button for a post
+// Function to read posts data from file
+const loadPostsFromFile = async () => {
+  try {
+    const data = fs.readFileSync("posts.json");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Error loading posts data:", error);
+    return [];
+  }
+};
+
+const loadUsersFromFile = async () => {
+  try {
+    const data = fs.readFileSync("users.json");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Error loading posts data:", error);
+    return [];
+  }
+};
+
+
+// Function to save posts data to a file
+const savePostsToFile = async (postsData) => {
+  try {
+    fs.writeFileSync("posts.json", JSON.stringify(postsData));
+    console.log("Posts data saved successfully.");
+  } catch (error) {
+    console.error("Error saving posts data:", error);
+  }
+};
+
+module.exports.like = async (event) => {
+  const requestBody = JSON.parse(event.body); // Parse the request body to extract the post ID and liked status
+  const { id, liked } = requestBody; // Destructure the post ID and liked status from the request body
+
+  // Load posts data from file
+  let postsData = await loadPostsFromFile();
+
+  // Find the post with the given ID
+  const postIndex = postsData.findIndex((post) => post.id === id);
+  if (postIndex === -1) {
+    return {
+      statusCode: 404,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        message: `Post with ID ${id} not found`,
+      }),
+    };
+  }
+
+  // Update the liked status of the post
+  postsData[postIndex].liked = liked;
+
+  // Save the updated posts data to file
+  await savePostsToFile(postsData);
+
+  return {
+    statusCode: 200,
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      message: `Post with ID ${id} liked status updated successfully`,
+    }),
+  };
+};
 
 // icons
 const plusIcon = "https://picsum.photos/id/555/200/300.jpg";
-// user data
-const USERS_DATA = [
-  {
-    id: Math.random().toString(36).substring(2, 27),
-    photoURL: "https://picsum.photos/id/870/200/300.jpg",
-    name: "Your story",
-    viewed: true,
-    main: true,
-  },
-  {
-    id: Math.random().toString(36).substring(2, 27),
-    photoURL: "https://picsum.photos/id/871/200/300.jpg",
-    name: "_sara_arruda_",
-    viewed: false,
-    main: false,
-  },
-  {
-    id: Math.random().toString(36).substring(2, 27),
-    photoURL: "https://picsum.photos/id/872/200/300.jpg",
-    name: "priv_design",
-    viewed: false,
-    main: false,
-  },
-  {
-    id: Math.random().toString(36).substring(2, 27),
-    photoURL: "https://picsum.photos/id/873/200/300.jpg",
-    name: "ds.pino",
-    viewed: false,
-    main: false,
-  },
-  {
-    id: Math.random().toString(36).substring(2, 27),
-    photoURL: "https://picsum.photos/id/874/200/300.jpg",
-    name: "denise_12",
-    viewed: false,
-    main: false,
-  },
-];
-
-// posts data
-const POSTS_DATA = [
-  {
-    id: "1",
-    profileURL: "https://picsum.photos/id/870/200/300.jpg",
-    postURL: "https://storage.googleapis.com/lewenberg/nonstop.mp4",
-    name: "uluketa",
-    comment: "Sky",
-    likes: "2.223",
-    date: "December 28, 2023",
-    liked: true,
-  },
-  {
-    id: "2",
-    profileURL: "https://picsum.photos/id/870/200/300.jpg",
-    postURL: "https://storage.googleapis.com/lewenberg/flying.mp4",
-    name: "_sara_arruda_",
-    comment: "Home",
-    likes: "1.153",
-    date: "January 02, 2024",
-    liked: false,
-  },
-  {
-    id: "3",
-    profileURL: "https://picsum.photos/id/870/200/300.jpg",
-    postURL: "https://storage.googleapis.com/lewenberg/block.mp4",
-    name: "_sara_arruda_",
-    comment: "Home",
-    likes: "1.153",
-    date: "January 02, 2024",
-    liked: true,
-  },
-];
 
 module.exports.users = async (event) => {
+    // Load users data from file
+    let usersData = await loadUsersFromFile();
   return {
     statusCode: 200,
     headers: {
@@ -84,13 +88,16 @@ module.exports.users = async (event) => {
       "Access-Control-Allow-Methods": "GET",
     },
     body: JSON.stringify({
-      users: USERS_DATA,
+      users: usersData,
       plusIcon,
     }),
   };
 };
 
 module.exports.posts = async (event) => {
+  // Load posts data from file
+  let postsData = await loadPostsFromFile();
+
   return {
     statusCode: 200,
     headers: {
@@ -99,24 +106,7 @@ module.exports.posts = async (event) => {
       "Access-Control-Allow-Methods": "GET",
     },
     body: JSON.stringify({
-      posts: POSTS_DATA,
-    }),
-  };
-};
-
-// function to toggle the "liked" button for a post
-// TODO:: add SQL db or local file storage for memory
-module.exports.like = async (event) => {
-  const requestBody = JSON.parse(event.body); // Parse the request body to extract the post ID and liked status
-  const { id, liked } = requestBody; // Destructure the post ID and liked status from the request body
-  return {
-    statusCode: 404,
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-    body: JSON.stringify({
-      message: `Post with ID ${id} not found`,
+      posts: postsData,
     }),
   };
 };
