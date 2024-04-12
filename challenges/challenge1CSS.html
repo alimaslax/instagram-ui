@@ -1,0 +1,62 @@
+<!---
+Challenge
+
+Center Align horizontally and vertically items in the main content.
+Items should expand vertically
+
+4 different people
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Grid Layout Challenge</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+  }
+  header, footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }
+  header {
+    grid-row: 1;
+  }
+  footer {
+    grid-row: 3;
+  }
+  main {
+    padding: 20px;
+    grid-row: 2;
+    background-color: #f4f4f4;
+  }
+  /* Your challenge starts here */
+  /* Define grid areas and style them accordingly */
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Header</h1>
+  </header>
+  <main>
+    <h2>Content Area</h2>
+    <p>Your content goes here.</p>
+  </main>
+  <footer>
+    <p>Footer</p>
+  </footer>
+</div>
+</body>
+</html>

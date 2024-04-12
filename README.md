@@ -68,16 +68,17 @@ HD-02: User Profile Pictures are not displaying as of R2024.07
 Description: Last nights production release of the API gateway has caused profile pictures to not display. Data
 is coming back from the api gateway but the app is no longer showing User photos.
     Given:
-        All profile pictures are not showing up.
+        User logs in
     Acceptance Criteria:
-        The video the user clicks on is the only one that gets toggled
+        The upper profile pictures must display
 
+change the photoUri to photoUrl. Must've been a backend change coming downstream
 
 ```
   const users: User[] = usersJson.users.map((user: any) => ({
     id: user.id,
     name: user.name,
-    photoURi: user.photoURL,
+    photoURi: user.photoURi,
 ```
 
 ==========================
