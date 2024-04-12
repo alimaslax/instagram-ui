@@ -82,16 +82,18 @@ change the photoUri to photoUrl. Must've been a backend change coming downstream
 ```
 
 ==========================
-HD-03: Stuff and stuff
+HD-03: Liked updates are only happening on app refresh. They are not live updating
 
-Description: Last nights production release of the API gateway has caused profile pictures to not display. Data
-is coming back from the api gateway but the app is no longer showing User photos.
+Description: When a User clicks the heart icon, likes and unlikes are only getting updated on refresh
     Given:
-        All profile pictures are not showing up.
+        User likes/unlikes a post
     Acceptance Criteria:
-        The video the user clicks on is the only one that gets toggled
+        The heart icon are updated, and the data is refreshed
 
-
+// Refetch posts data after the update on home screen index.tsx
+```
+postQuery.refetch();
+```
 
 ## Troubleshooting
 If images and videos are not loading, but the user profile names are loading. Then this is a proxy issue with iOS simulator. Make sure to Trust any local Certificates or to add trusted certificates to the new iPhone simulator

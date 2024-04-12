@@ -106,14 +106,15 @@ export function Home() {
       onViewableItemsChanged: onHideVideo,
     },
   ]);
-  
-   const toggleLikePost = async (post: Post): Promise<void> => {
+
+  const toggleLikePost = async (post: Post): Promise<void> => {
     const updatedPostData: Post = {
       ...post,
-      liked: !post.liked // Toggle the liked status
+      liked: !post.liked, // Toggle the liked status
     };
-    
+
     await updatePostDetails(updatedPostData);
+    postQuery.refetch();
   };
   return (
     <View style={styles.container}>
@@ -179,7 +180,10 @@ export function Home() {
 
                 <View style={styles.contentItemFooter}>
                   <View style={styles.contentItemFooterLeft}>
-                    <TouchableOpacity key={item.id} onPress={() => toggleLikePost(item)}>
+                    <TouchableOpacity
+                      key={item.id}
+                      onPress={() => toggleLikePost(item)}
+                    >
                       {item.liked ? <RedHeartIcon /> : <HeartIcon />}
                     </TouchableOpacity>
                     <CommentIcon />
