@@ -18,3 +18,17 @@ export const getUserDetails = async (): Promise<User[]> => {
   console.log(users);
   return users;
 };
+
+export const updatePostDetails = async (postData: Post): Promise<void> => {
+  const response = await fetch(`http://localhost:3000/dev/like`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(postData)
+  });
+  
+  if (!response.ok) {
+    throw new Error('Failed to update post details');
+  }
+};
